@@ -22,10 +22,20 @@ import com.huaban.analysis.jieba.JiebaSegmenter;
 public class TFIDFAnalyzer
 {
 	
-	static HashMap<String,Double> idfMap;
-	static HashSet<String> stopWordsSet;
+	static HashMap<String,Double> idfMap = new HasMap<>();
+	static HashSet<String> stopWordsSet = new HashSet<>();
 	static double idfMedian;
 	private final String DEFAULT_CHARSET_NAME = "utf-8";
+
+	public TFIDFAnalyzer() {
+		synchronized (stopWordsSet) {
+			loadStopWords(stopWordsSet, this.getClass().getResourceAsStream("/stop_words.txt"));
+		}
+		synchronized (idfMap) {
+			loadIDFMap(idfMap, this.getClass().getResourceAsStream("/idf_dict.txt"));
+			loadIDFMap(idfMap, this.getClass().getResourceAsStream("/idf_user.txt"));
+		}
+	}
 
 	/**
 	 * tfidf分析方法
@@ -35,7 +45,7 @@ public class TFIDFAnalyzer
 	 */
 	public List<Keyword> analyze(String content,int topN){
 		List<Keyword> keywordList=new ArrayList<>();
-		
+
 		if(stopWordsSet==null) {
 			stopWordsSet=new HashSet<>();
 			loadStopWords(stopWordsSet, this.getClass().getResourceAsStream("/stop_words.txt"));
