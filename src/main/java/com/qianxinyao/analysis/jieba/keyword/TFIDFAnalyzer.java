@@ -25,9 +25,10 @@ public class TFIDFAnalyzer
 	static HashMap<String,Double> idfMap = new HasMap<>();
 	static HashSet<String> stopWordsSet = new HashSet<>();
 	static double idfMedian;
-	private final String DEFAULT_CHARSET_NAME = "utf-8";
+	private String DEFAULT_CHARSET_NAME = "utf-8";
 
 	public TFIDFAnalyzer() {
+		DEFAULT_CHARSET_NAME = Charset.defaultCharset().toString();
 		synchronized (stopWordsSet) {
 			loadStopWords(stopWordsSet, this.getClass().getResourceAsStream("/stop_words.txt"));
 		}
