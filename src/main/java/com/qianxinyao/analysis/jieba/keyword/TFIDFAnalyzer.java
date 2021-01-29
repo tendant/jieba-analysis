@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.nio.charset.Charset;
 
 import com.huaban.analysis.jieba.JiebaSegmenter;
 
@@ -22,7 +23,7 @@ import com.huaban.analysis.jieba.JiebaSegmenter;
 public class TFIDFAnalyzer
 {
 	
-	static HashMap<String,Double> idfMap = new HasMap<>();
+	static HashMap<String,Double> idfMap = new HashMap<>();
 	static HashSet<String> stopWordsSet = new HashSet<>();
 	static double idfMedian;
 	private String DEFAULT_CHARSET_NAME = "utf-8";
